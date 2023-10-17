@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using PRJ;
+
 public class UtilityManager : SingletonMonoBehaviour<UtilityManager>
 {
     public Color HexColor(string hexCode)

@@ -79,8 +79,6 @@ public class UIManager : MonoBehaviour
         }
         views.FindAll(v => v != initialView).ForEach(v => v.HideLayer());
 
-        // DataHttp.OnEndDataSync += OnDataSync;
-
         OnAwakeUI();
 
         if (initialView == null)
@@ -115,7 +113,6 @@ public class UIManager : MonoBehaviour
     void OnDestroy()
     {
         Instance = null;
-        // DataHttp.OnEndDataSync -= OnDataSync;
         OnDestroyUI();
     }
 
@@ -177,7 +174,7 @@ public class UIManager : MonoBehaviour
 
         string path = string.Concat(PrefabRoot, type.ToString(), "/", name);
         //Debug.Log("path = " + path);
-        GameObject go = GameObject.Instantiate(Resources.Load<GameObject>(path)) as GameObject;
+        GameObject go = Instantiate(Resources.Load<GameObject>(path));
 
         go.SetActive(false);
         go.name = name;
