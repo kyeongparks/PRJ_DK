@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEditor.PackageManager.UI;
 
 namespace PRJ
 {
     public class MainView : UIView
     {
+        [SerializeField] List<Sprite> images;
+
+        private int curIdx = 0, prevIdx = -1;
         public void Show()
         {
             ShowLayer();
@@ -25,34 +29,46 @@ namespace PRJ
 
         protected override void OnShow()
         {
+            Find<Text>("TitleBG/Title").text = "Unity Tutorial Example";
+        }
 
+        protected override void OnEnableLayer()
+        {
+            while(curIdx == prevIdx)
+            {
+                curIdx = Random.Range(0, images.Count);
+                if (prevIdx == -1) break;
+            }
+
+            Find<Image>("BG").sprite = images[curIdx];
+            prevIdx = curIdx;
         }
 
         #region Event
 
         private void OnClick_Btn1()
         {
-            Debug.Log("btn 1 Clicked!!!");
+            ProjectRootUI.Instance.View<Tutorial1View>().Show();
         }
         private void OnClick_Btn2()
         {
-            Debug.Log("btn 2 Clicked!!!");
+            ProjectRootUI.Instance.View<Tutorial2View>().Show();
         }
         private void OnClick_Btn3()
         {
-            Debug.Log("btn 3 Clicked!!!");
+            ProjectRootUI.Instance.View<Tutorial3View>().Show();
         }
         private void OnClick_Btn4()
         {
-            Debug.Log("btn 4 Clicked!!!");
+            ProjectRootUI.Instance.View<Tutorial4View>().Show();
         }
         private void OnClick_Btn5()
         {
-            Debug.Log("btn 5 Clicked!!!");
+            ProjectRootUI.Instance.View<Tutorial5View>().Show();
         }
         private void OnClick_Btn6()
         {
-            Debug.Log("btn 6 Clicked!!!");
+            ProjectRootUI.Instance.View<Tutorial6View>().Show();
         }
         #endregion
     }
